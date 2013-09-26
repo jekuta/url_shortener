@@ -1,0 +1,7 @@
+<h1>Url Shortener App</h1>
+<%= form_for(@url) do |f| %>
+  <%= f.label :url %>
+  <%= f.text_field :url %>
+
+  <%= f.submit "Shorten!" %>
+<% end %>
