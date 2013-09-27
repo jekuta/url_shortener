@@ -13,6 +13,11 @@ describe UrlsController do
         expect(response.code).to eq('302')
         expect(response).to redirect_to(url.url)
       end
+
+      it "should increment visits counter" do
+        get :show, id: url.id
+        Url.find(url).visits.should == 1
+      end
     end
 
     context "with an id that doesn't map to an url address" do
