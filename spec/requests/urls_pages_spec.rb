@@ -18,22 +18,30 @@ describe "Urls Pages" do
       context "with a valid url" do
         before { fill_in "Url", with: "http://example.com" }
 
-        it "should the url to database" do
-          expect { click_button "Shorten!".to change(Url, :count).by(1) }
-        end
-
-        it "should display the shortened url" do
-          click_button "Shorten!"
-          current_path.should == '/1'
+        it "should save the url" do
+          expect { click_button "Shorten!" }.to change(Url, :count).by(1)
         end
 
         context "and 9 urls already in the database" do
           before { 9.times { Url.create(url: "http://example.com") } }
 
-          it "should displey the shortened url" do
+          it "should display the shortened url" do
             click_button "Shorten!"
-            current_path.should == '/a'
+            expect(page).to have_content(root_url+ "#{10.to_s(32)}")
           end
+        end
+      end
+
+      context "with an invalid url" do
+        before { fill_in "Url", with: "abc" }
+
+        it "should not save the url" do
+          expect { click_button "Shorten!" }.to change(Url, :count).by(0)
+        end
+
+        it "should display error" do
+          click_button "Shorten!"
+          expect(page).to have_content('Invalid url')
         end
       end
     end

@@ -6,15 +6,22 @@ class UrlsController < ApplicationController
   def create
     @url = Url.new(url_params)
     if @url.save
-      redirect_to "/#{@url.id.to_s(32)}"
+      flash[:notice] = root_url+ @url.id.to_s(32)
+      redirect_to root_path
     else
       flash[:error] = "Invalid url"
-      render 'new'
+      redirect_to root_path
     end
   end
 
   def show
-
+    id = params[:id].to_i(32)
+    url = Url.find_by_id(id)
+    if id != 0 && url
+      redirect_to url.url
+    else
+      redirect_to root_path
+    end
   end
 
   private
