@@ -14,28 +14,49 @@ class UrlsController < ApplicationController
   end
 
   def show
-    if params[:id][-1] == '!'
-      id = params[:id][0...-1].to_i(32)
-      url = Url.find_by_id(id)
-      if id != 0 && url
-        @url = url
-        render 'show_link'
-      end
-    else
-      id = params[:id].to_i(32)
-      url = Url.find_by_id(id)
-      if id != 0 && url
-        url.visits += 1
-        url.save
-        redirect_to url.url
-      else
-        redirect_to root_path
-      end
+    last_char = params[:id][-1]
+
+    case last_char
+    when '!' then show_link(params[:id][0...-1])
+    when '+' then show_link_stats(params[:id][0...-1])
+    else redirect_to_url(params[:id])
     end
   end
 
   private
     def url_params
       params.require(:url).permit(:url)
+    end
+
+    def show_link(id)
+      show_url(id) do |url|
+        @url = url
+        render 'show_link'
+      end
+    end
+
+    def show_link_stats(id)
+      show_url(id) do |url|
+        @url = url
+        render 'show_link_stats'
+      end
+    end
+
+    def redirect_to_url(id)
+      show_url(id) do |url|
+        url.visits +=1
+        url.save
+        redirect_to url.url
+      end
+    end
+
+    def show_url(id)
+      id = id.to_i(32)
+      url = Url.find_by_id(id)
+      if id != 0 && url
+        yield ( url )
+      else
+        redirect_to root_path
+      end
     end
 end

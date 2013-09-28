@@ -22,10 +22,15 @@ describe UrlsController do
 
     context "with an id and a plus sign" do
       let(:url) { Url.create(url: 'http://example.com') }
-      before { 2.times { get :show, id: url.id } }
+      before do 
+        request.env['HTTP_REFERER'] = "http://foo.com"
+        2.times { get :show, { id: url.id } }
+      end
 
       it "should show a stats page for the url" do
-        pending
+        get :show, id: "#{url.id}+"
+        response.should be_successful
+        response.should render_template("show_link_stats")
       end
     end
 

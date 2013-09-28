@@ -50,13 +50,28 @@ describe "Urls Pages" do
   describe "Show link page" do
     let(:url) { Url.create(url: "http://example.com") }
 
-      before { visit "/#{url.id}!" }
+    before { visit "/#{url.id}!" }
     describe "url with and exclamation mark" do
 
       it "should take to the link page" do
         expect(current_path).to eq("/#{url.id}!")
         expect(page).to have_content(url.url)
       end
+    end
+  end
+
+  describe "Show link stats page" do
+    let(:url) { Url.create(url: "http://example.com") }
+
+    before do
+      2.times { get "/#{url.id}", nil, { 'HTTP_REFERER' => 'http://foo.com' } }
+      3.times { get "/#{url.id}", nil, { 'HTTP_REFERER' => 'http://bar.com' } }
+      visit "/#{url.id}+"
+    end
+
+    it "should take to the link stats page" do
+      expect(current_path).to eq("/#{url.id}+")
+      expect(page).to have_content('5')
     end
   end
 end
