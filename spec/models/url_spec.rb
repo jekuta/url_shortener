@@ -21,7 +21,14 @@ describe Url do
   end
 
   describe "url with a valid url address" do
-    it { should be_valid }
+    it "should be valid" do
+      addresses = %w[http://example.com https://example.com example.com]
+
+      addresses.each do |valid_address|
+        @url.url = valid_address
+        expect(@url).to be_valid
+      end
+    end
   end
 
   describe "url with a valid url address" do

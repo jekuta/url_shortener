@@ -14,14 +14,23 @@ class UrlsController < ApplicationController
   end
 
   def show
-    id = params[:id].to_i(32)
-    url = Url.find_by_id(id)
-    if id != 0 && url
-      url.visits += 1
-      url.save
-      redirect_to url.url
+    if params[:id][-1] == '!'
+      id = params[:id][0...-1].to_i(32)
+      url = Url.find_by_id(id)
+      if id != 0 && url
+        @url = url
+        render 'show_link'
+      end
     else
-      redirect_to root_path
+      id = params[:id].to_i(32)
+      url = Url.find_by_id(id)
+      if id != 0 && url
+        url.visits += 1
+        url.save
+        redirect_to url.url
+      else
+        redirect_to root_path
+      end
     end
   end
 

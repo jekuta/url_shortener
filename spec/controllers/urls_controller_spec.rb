@@ -20,6 +20,25 @@ describe UrlsController do
       end
     end
 
+    context "with an id and a plus sign" do
+      let(:url) { Url.create(url: 'http://example.com') }
+      before { 2.times { get :show, id: url.id } }
+
+      it "should show a stats page for the url" do
+        pending
+      end
+    end
+
+    context "with an id and an exclamation mark " do
+      let(:url) { Url.create(url: 'http://example.com') }
+
+      it "should show a link page for the url" do
+        get :show, id: "#{url.id}!"
+        response.should be_successful
+        response.should render_template("show_link")
+      end
+    end
+
     context "with an id that doesn't map to an url address" do
       it "should redirect to new action" do
         get :show, id: 100

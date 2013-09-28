@@ -46,4 +46,17 @@ describe "Urls Pages" do
       end
     end
   end
+
+  describe "Show link page" do
+    let(:url) { Url.create(url: "http://example.com") }
+
+      before { visit "/#{url.id}!" }
+    describe "url with and exclamation mark" do
+
+      it "should take to the link page" do
+        expect(current_path).to eq("/#{url.id}!")
+        expect(page).to have_content(url.url)
+      end
+    end
+  end
 end
