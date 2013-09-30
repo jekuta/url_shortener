@@ -64,6 +64,7 @@ describe "Urls Pages" do
     let(:url) { Url.create(url: "http://example.com") }
 
     before do
+      # HTTP_REFERERs are for the not yet existent feature of tracking incoming links
       2.times { get "/#{url.id}", nil, { 'HTTP_REFERER' => 'http://foo.com' } }
       3.times { get "/#{url.id}", nil, { 'HTTP_REFERER' => 'http://bar.com' } }
       visit "/#{url.id}+"
