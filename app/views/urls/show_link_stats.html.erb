@@ -1,4 +1,4 @@
-<h1>Url</h1>
+<h1>Stats for <%= "#{root_url}#{@url.id}" %></h1>
 <p>
-  <%= "#{root_url}#{@url.id}" %> visited <%= pluralize(@url.visits, 'time') %>
+  <%= "#{root_url}#{@url.id}" %> has been visited <%= pluralize(@url.visits, 'time') %>
 </p>

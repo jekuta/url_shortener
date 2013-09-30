@@ -1,10 +1,14 @@
 <h1>Url Shortener App</h1>
+<p>Make short links!</p>
 <% flash.each do |name, msg| %>
   <%= content_tag :div, msg, class: name %>
 <% end %>
-<%= form_for(@url) do |f| %>
-  <%= f.label :url %>
-  <%= f.text_field :url %>
+<%= form_for @url, html: { class: "form-inline" } do |f| %>
+  <%= f.text_field :url, placeholder: "http://example.com", class: "input-xxlarge", id: "url" %>
 
-  <%= f.submit "Shorten!" %>
+  <%= f.submit "Shorten!", class: "btn btn-primary" %>
+  <ul class="help-block">
+    <li>add "+" to the url to see stats for the link</li>
+    <li>add "!" to the url to see the target of the link</li>
+  </ul>
 <% end %>

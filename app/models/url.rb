@@ -3,6 +3,7 @@ class Url < ActiveRecord::Base
   before_create :append_scheme
 
   def append_scheme
-    self.url = "http://#{self.url}" unless URI.parse(self.url).scheme
+    url_address = self.url
+    self.url = "http://#{url_address}" unless URI.parse(url_address).scheme
   end
 end

@@ -22,7 +22,7 @@ describe UrlsController do
 
     context "with an id and a plus sign" do
       let(:url) { Url.create(url: 'http://example.com') }
-      before do 
+      before do
         request.env['HTTP_REFERER'] = "http://foo.com"
         2.times { get :show, { id: url.id } }
       end

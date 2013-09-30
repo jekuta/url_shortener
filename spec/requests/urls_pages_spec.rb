@@ -16,7 +16,7 @@ describe "Urls Pages" do
     describe "url shortening" do
 
       context "with a valid url" do
-        before { fill_in "Url", with: "http://example.com" }
+        before { fill_in "url", with: "http://example.com" }
 
         it "should save the url" do
           expect { click_button "Shorten!" }.to change(Url, :count).by(1)
@@ -33,7 +33,7 @@ describe "Urls Pages" do
       end
 
       context "with an invalid url" do
-        before { fill_in "Url", with: "abc" }
+        before { fill_in "url", with: "abc" }
 
         it "should not save the url" do
           expect { click_button "Shorten!" }.to change(Url, :count).by(0)

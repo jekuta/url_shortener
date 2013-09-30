@@ -6,7 +6,7 @@ class UrlsController < ApplicationController
   def create
     @url = Url.new(url_params)
     if @url.save
-      flash[:notice] = root_url+ @url.id.to_s(32)
+      flash[:notice] = "Your shortened url is #{root_url}#{@url.id.to_s(32)}"
     else
       flash[:error] = "Invalid url"
     end
@@ -14,12 +14,13 @@ class UrlsController < ApplicationController
   end
 
   def show
-    last_char = params[:id][-1]
+    id = params[:id]
+    last_char = id[-1]
 
     case last_char
-    when '!' then show_link(params[:id][0...-1])
-    when '+' then show_link_stats(params[:id][0...-1])
-    else redirect_to_url(params[:id])
+    when '!' then show_link(id[0...-1])
+    when '+' then show_link_stats(id[0...-1])
+    else redirect_to_url(id)
     end
   end
 
