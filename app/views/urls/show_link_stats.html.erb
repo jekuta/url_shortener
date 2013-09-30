@@ -1,4 +1,4 @@
-<h1>Stats for <%= link_to "#{root_url}#{@url.id}" %></h1>
+<h1>Stats for <%= link_to "#{root_url}#{@url.id}", "#{root_url}#{@url.id}" %></h1>
 <p>
-  <%= link_to "#{root_url}#{@url.id}" %> has been visited <%= pluralize(@url.visits, 'time') %>
+  <%= link_to "#{root_url}#{@url.id}", "#{root_url}#{@url.id}" %> has been visited <%= pluralize(@url.visits, 'time') %>
 </p>

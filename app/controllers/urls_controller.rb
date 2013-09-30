@@ -53,6 +53,7 @@ class UrlsController < ApplicationController
     end
 
     def show_url(id)
+      # each url is saved by converting the id of the saved item into base 32
       id = id.to_i(32)
       url = Url.find_by_id(id)
       if id != 0 && url

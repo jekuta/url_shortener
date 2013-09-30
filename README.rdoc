@@ -1,28 +1,21 @@
-== README
+URL SHORTENER
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application shortens url addresses given by a user into a shorter form.
+Each url given by the users is saved to the database. The id number of the saved
+url is converted from base 10 number into base 32 number. 
 
-Things you may want to cover:
+www.google.com -> saved -> id number '9' -> converted number 'a'
 
-* Ruby version
+This number then works as a path in application 
 
-* System dependencies
+shorturl.com/a -> points to www.google.com
 
-* Configuration
+When the user tries to access the address, the number in the path is extracted and converted back
+into base 10. Using this number the target url can be queried from the database and the user 
+redirected to the address.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Additional features
+* by adding '!' to the end of the url e.g. shorturl.com/a!
+  the user can verify the target link
+* by adding '+' to the end of the url e.g. shorturl.com/a+
+  the user can see how many redirects there has been through the link
