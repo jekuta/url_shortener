@@ -6,7 +6,8 @@ class UrlsController < ApplicationController
   def create
     @url = Url.new(url_params)
     if @url.save
-      flash[:notice] = "Your shortened url is #{root_url}#{@url.id.to_s(32)}"
+      shortened_url = "#{root_url}#{@url.id.to_s(32)}"
+      flash[:success] = "Your shortened url is <a href=\"#{shortened_url}\">#{shortened_url}</a>".html_safe
     else
       flash[:error] = "Invalid url"
     end

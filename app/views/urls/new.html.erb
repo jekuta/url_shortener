@@ -1,7 +1,7 @@
 <h1>Url Shortener App</h1>
 <p>Make short links!</p>
 <% flash.each do |name, msg| %>
-  <%= content_tag :div, msg, class: name %>
+  <%= content_tag :div, msg, class: "alert alert-#{name}" %>
 <% end %>
 <%= form_for @url, html: { class: "form-inline" } do |f| %>
   <%= f.text_field :url, placeholder: "http://example.com", class: "input-xxlarge", id: "url" %>
